@@ -1,28 +1,14 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-class PostController extends Controller
+abstract class Controller extends BaseController
 {
-    public function index() {
-        $posts = Post::latest()->get();
-        return view('posts.index', compact('posts'));
-    }
-
-    public function create() {
-        return view('posts.create');
-    }
-
-    public function store(Request $request) {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]);
-
-        Post::create($request->only('title', 'content'));
-        return redirect()->route('posts.index')->with('success', 'Post created successfully!');
-    }
+    use AuthorizesRequests, ValidatesRequests;
+   
 }

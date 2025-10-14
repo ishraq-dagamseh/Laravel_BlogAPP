@@ -1,7 +1,6 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Route;
 // Basic Route
 Route::get('/hello', function () { return "Hello Laravel!"; });
 // Basic GET Route
