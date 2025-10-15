@@ -3,9 +3,17 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Post;
+use App\Policies\PostPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
+    // Register the PostPolicy
+    protected $policies = [
+        Post::class => PostPolicy::class,
+    ];
+    
+
     /**
      * Register any application services.
      */

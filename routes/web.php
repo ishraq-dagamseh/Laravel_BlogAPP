@@ -1,26 +1,20 @@
 <?php
-use App\Http\Controllers\PostController;
+
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-// Basic Route
-Route::get('/hello', function () { return "Hello Laravel!"; });
-// Basic GET Route
-Route::get('/', [PostController::class, 'index']);
-// Route Parameters
-Route::get('/post/{id}', [PostController::class, 'show']);
-// Constraints
-Route::get('/post/{id}', [PostController::class, 'show'])->where('id','[0-9]+');
-// Named Route
-Route::get('/about', fn()=> 'About Page')->name('about.page');
-// Group & Prefix
-Route::prefix('admin')->group(function () {
-Route::get('/dashboard', fn()=> 'Admin Dashboard');
+
+Route::get('/', function () {
+    return view('welcome');
 });
-// Verb Methods
-Route::post('/post', [PostController::class, 'store']);
-// Middleware
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::middleware('auth')->group(function () {
-Route::get('/profile', fn()=> 'User Profile');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-// Redirect & View
-Route::redirect('/old-home', '/');
-Route::view('/contact', 'contact');
+
+require __DIR__.'/auth.php';
