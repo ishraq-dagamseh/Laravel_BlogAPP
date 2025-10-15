@@ -10,7 +10,9 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Home path for redirect after login/registration
      */
-    public const HOME = '/posts/create';
+    //public const HOME = '/posts/create';
+    public const HOME = '/posts';
+
 
     /**
      * Define your route model bindings, pattern filters, etc.
